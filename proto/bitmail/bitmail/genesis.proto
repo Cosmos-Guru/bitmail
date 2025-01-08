@@ -1,0 +1,12 @@
+syntax = "proto3";
+package bitmail.bitmail;
+
+import "gogoproto/gogo.proto";
+import "bitmail/bitmail/params.proto";
+
+option go_package = "bitmail/x/bitmail/types";
+
+// GenesisState defines the bitmail module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

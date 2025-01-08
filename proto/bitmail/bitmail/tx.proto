@@ -1,0 +1,7 @@
+syntax = "proto3";
+package bitmail.bitmail;
+
+option go_package = "bitmail/x/bitmail/types";
+
+// Msg defines the Msg service.
+service Msg {}
