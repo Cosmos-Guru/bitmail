@@ -1,0 +1,12 @@
+syntax = "proto3";
+package bitmail.ehl;
+
+option go_package = "bitmail/x/ehl/types";
+
+message HashCid {
+  uint64 id = 1;
+  string receiver = 2; 
+  string hashlink = 3; 
+  string vaultid = 4; 
+  string creator = 5;
+}

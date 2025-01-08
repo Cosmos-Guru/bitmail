@@ -113,6 +113,9 @@ import (
 	bitmailmodule "bitmail/x/bitmail"
 	bitmailmodulekeeper "bitmail/x/bitmail/keeper"
 	bitmailmoduletypes "bitmail/x/bitmail/types"
+	ehlmodule "bitmail/x/ehl"
+	ehlmodulekeeper "bitmail/x/ehl/keeper"
+	ehlmoduletypes "bitmail/x/ehl/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "bitmail/app/params"
@@ -174,6 +177,7 @@ var (
 		vesting.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		bitmailmodule.AppModuleBasic{},
+		ehlmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -250,6 +254,8 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	BitmailKeeper bitmailmodulekeeper.Keeper
+
+	EhlKeeper ehlmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -297,6 +303,7 @@ func New(
 		feegrant.StoreKey, evidencetypes.StoreKey, ibctransfertypes.StoreKey, icahosttypes.StoreKey,
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
 		bitmailmoduletypes.StoreKey,
+		ehlmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -527,6 +534,14 @@ func New(
 	)
 	bitmailModule := bitmailmodule.NewAppModule(appCodec, app.BitmailKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.EhlKeeper = *ehlmodulekeeper.NewKeeper(
+		appCodec,
+		keys[ehlmoduletypes.StoreKey],
+		keys[ehlmoduletypes.MemStoreKey],
+		app.GetSubspace(ehlmoduletypes.ModuleName),
+	)
+	ehlModule := ehlmodule.NewAppModule(appCodec, app.EhlKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	/**** IBC Routing ****/
@@ -589,6 +604,7 @@ func New(
 		transferModule,
 		icaModule,
 		bitmailModule,
+		ehlModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 
 		crisis.NewAppModule(app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)), // always be last to make sure that it checks for all invariants and not only part of them
@@ -622,6 +638,7 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		bitmailmoduletypes.ModuleName,
+		ehlmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -648,6 +665,7 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		bitmailmoduletypes.ModuleName,
+		ehlmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -679,6 +697,7 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		bitmailmoduletypes.ModuleName,
+		ehlmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 	app.mm.SetOrderInitGenesis(genesisModuleOrder...)
@@ -904,6 +923,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(bitmailmoduletypes.ModuleName)
+	paramsKeeper.Subspace(ehlmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

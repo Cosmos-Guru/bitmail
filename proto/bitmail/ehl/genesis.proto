@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package bitmail.ehl;
+
+import "gogoproto/gogo.proto";
+import "bitmail/ehl/params.proto";
+import "bitmail/ehl/hash_cid.proto";
+
+option go_package = "bitmail/x/ehl/types";
+
+// GenesisState defines the ehl module's genesis state.
+message GenesisState {
+           Params  params       = 1 [(gogoproto.nullable) = false];
+  repeated HashCid hashCidList  = 2 [(gogoproto.nullable) = false];
+           uint64  hashCidCount = 3;
+}
+

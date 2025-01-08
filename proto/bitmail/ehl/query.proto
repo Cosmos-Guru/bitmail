@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package bitmail.ehl;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "bitmail/ehl/params.proto";
+import "bitmail/ehl/hash_cid.proto";
+
+option go_package = "bitmail/x/ehl/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/bitmail/ehl/params";
+  
+  }
+  
+  // Queries a list of HashCid items.
+  rpc HashCid    (QueryGetHashCidRequest) returns (QueryGetHashCidResponse) {
+    option (google.api.http).get = "/bitmail/ehl/hash_cid/{id}";
+  
+  }
+  rpc HashCidAll (QueryAllHashCidRequest) returns (QueryAllHashCidResponse) {
+    option (google.api.http).get = "/bitmail/ehl/hash_cid";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetHashCidRequest {
+  uint64 id = 1;
+}
+
+message QueryGetHashCidResponse {
+  HashCid HashCid = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllHashCidRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllHashCidResponse {
+  repeated HashCid                                HashCid    = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+

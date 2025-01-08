@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package bitmail.ehl;
+
+import "bitmail/ehl/hash_cid.proto";
+
+option go_package = "bitmail/x/ehl/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc CreateHashCid (MsgCreateHashCid) returns (MsgCreateHashCidResponse);
+  rpc UpdateHashCid (MsgUpdateHashCid) returns (MsgUpdateHashCidResponse);
+  rpc DeleteHashCid (MsgDeleteHashCid) returns (MsgDeleteHashCidResponse);
+}
+message MsgCreateHashCid {
+  string creator  = 1;
+  string receiver = 2;
+  string hashlink = 3;
+  string vaultid  = 4;
+}
+
+message MsgCreateHashCidResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateHashCid {
+  string creator  = 1;
+  uint64 id       = 2;
+  string receiver = 3;
+  string hashlink = 4;
+  string vaultid  = 5;
+}
+
+message MsgUpdateHashCidResponse {}
+
+message MsgDeleteHashCid {
+  string creator = 1;
+  uint64 id      = 2;
+}
+
+message MsgDeleteHashCidResponse {}
+
