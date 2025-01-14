@@ -5,6 +5,10 @@
 The evolution of blockchain technology has transcended beyond simple token transfers, addressing more complex use-cases such as secure, decentralized messaging. This abridged white paper introduces **Bitmail**, an open source messaging protocol built on the Cosmos SDK, designed to eliminate spam and enhance privacy through decentralized verification and advanced encryption mechanisms. Unlike first-generation blockchain applications, which primarily facilitate numerical transactions between parties, Bitmail leverages second-generation blockchain capabilities to enable secure data exchanges. This document delves into the limitations of early blockchain messaging solutions—particularly those impacting scalability and feasibility—and illustrates how Bitmail rectifies these shortcomings via asymmetric encryption and decentralized infrastructure. By enabling users to share encrypted hash links on a permissionless, decentralized network, Bitmail presents a viable alternative to traditional email systems, which are notoriously susceptible to spam.
 
 ---
+### Important Links
+[Running a Full Node](https://github.com/Cosmos-Guru/bitmail/blob/main/docs/tutorials/BootstrapNode.md)
+[Cosmos Journey Website - Cosmos SDK Tutorials](https://www.cosmos-journey.io/)
+
 
 ## Why Bitmail?
 
