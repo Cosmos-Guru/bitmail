@@ -7,6 +7,7 @@ The evolution of blockchain technology has transcended beyond simple token trans
 ---
 ### Important Links
 [Running a Full Node](https://github.com/Cosmos-Guru/bitmail/blob/main/docs/tutorials/BootstrapNode.md)
+
 [Cosmos Journey Website - Cosmos SDK Tutorials](https://www.cosmos-journey.io/)
 
 
